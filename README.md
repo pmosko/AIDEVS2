@@ -15,7 +15,6 @@ Create .env file and paste your api key(s)
 ```
 cp .env.example
 ```
-$ cat ~/.aidevs2
 
 ## Usage
 Run the script.
