@@ -23,6 +23,11 @@ Run the script.
 python task_x.py
 ```
 
+Override Task parameters
+```
+python task_x.py -o [options]
+```
+
 # List od scripts:
 ## Day 01
 - task_helloapi.py
@@ -31,3 +36,5 @@ python task_x.py
 - task_blogger.py
 ## Day 05
 - task_liar.py
+## Day 07
+- task_inprompt.py
