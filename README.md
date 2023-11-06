@@ -38,3 +38,5 @@ python task_x.py -o [options]
 - task_liar.py
 ## Day 07
 - task_inprompt.py
+## Day 09
+- task_whisper.py
