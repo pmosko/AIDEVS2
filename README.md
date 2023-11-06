@@ -40,3 +40,5 @@ python task_x.py -o [options]
 - task_inprompt.py
 ## Day 09
 - task_whisper.py
+## Day 10
+- task_functions.py
