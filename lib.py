@@ -6,6 +6,7 @@ import os
 import openai
 from pprint import pprint
 from dotenv import load_dotenv
+import argparse
 
 load_dotenv()
 
@@ -13,6 +14,16 @@ TOKEN = os.environ['AIDEV_TOKEN']
 URL = "https://zadania.aidevs.pl"
 
 openai.api_key = os.environ['OPENAI_TOKEN']
+
+lib_parser = argparse.ArgumentParser()
+lib_parser.add_argument('-o', '--overload', help='overload parameters', action='store_true')
+lib_parser.add_argument('-t', '--show-task', help='show task', action='store_true')
+lib_parser.add_argument('-r', '--show-result', help='show result', action='store_true')
+lib_parser.add_argument('-v', '--verbose', help='verbose', action='store_true')
+lib_args = lib_parser.parse_args()
+if lib_args.verbose:
+    lib_args.show_result = True
+    lib_args.show_task = True
 
 def auth_task(taskname: str) -> str:
     """Get token for task"""
@@ -40,6 +51,9 @@ def send_task(token: str=None, question: dict=None, headers: dict=None) -> dict:
 
 def send_answer(token: str, answer: dict, headers: dict=None) -> dict:
     """Send Task answer"""
+    if lib_args.verbose:
+        print("> Anser:")
+        pprint(answer)
     url = get_url('answer', token)
     return json.loads(requests.post(url=url, headers=headers, json=answer).text)
 
@@ -62,12 +76,16 @@ class Task:
                  show_result:bool = False, 
                  show_task: bool = False) -> None:
         self.task_name = task_name
-        self.send_response = send_response
         self.answer = None
         self.question = None
         self.answer_send = False
-        self.show_result = show_result
-        self.show_task = show_task
+        if lib_args.overload:
+            self.show_result = lib_args.show_result
+            self.show_task = lib_args.show_task
+        else:
+            self.show_result = show_result
+            self.show_task = show_task
+        self.send_response = send_response
         if get_task:
             self.get_task()
 
